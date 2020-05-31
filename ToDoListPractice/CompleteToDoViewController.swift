@@ -9,22 +9,27 @@
 import UIKit
 
 class CompleteToDoViewController: UIViewController {
+    
+    var previousVC = ToDoListController()
+    var selectedToDo : ToDoCD?
 
+    @IBOutlet weak var toDoTitle: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        toDoTitle.text = selectedToDo?.name
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func completePressed(_ sender: UIButton) {
+        
+        if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
+           if let theToDo = selectedToDo {
+             context.delete(theToDo)
+             navigationController?.popViewController(animated: true)
+           }
+         }
+        
     }
-    */
+    
 
 }
